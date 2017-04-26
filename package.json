@@ -1,0 +1,26 @@
+{
+  "name": "xstreamDemo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "xstream.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.conf.js"
+  },
+  "devDependencies": {
+    "babel-core": "^6.0.0",
+    "babel-eslint": "^7.0.0",
+    "babel-loader": "^6.0.0",
+    "babel-plugin-transform-runtime": "^6.0.0",
+    "babel-preset-es2015": "^6.0.0",
+    "babel-preset-stage-2": "^6.0.0",
+    "babel-register": "^6.0.0",
+    "webpack": "^1.13.2"
+  },
+  "author": "foxpsd <xusy@dxy.cn>",
+  "license": "ISC",
+  "dependencies": {
+    "jquery": "3.2.1",
+    "xstream": "10.5.0"
+  }
+}

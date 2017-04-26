@@ -1,0 +1,11 @@
+.idea/
+.DS_Store
+.editorconfig
+node_modules/
+npm-debug.log
+selenium-debug.log
+test/unit/coverage
+test/e2e/reports
+report_eslint.html
+manifext.json
+README.html
