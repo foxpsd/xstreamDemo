@@ -44,36 +44,11 @@
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(1);
+	module.exports = __webpack_require__(9);
 
 
 /***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	// require $ from 'jquery'
-	let $ = __webpack_require__(2);
-	let xs = __webpack_require__(3).default;
-	let fromEvent = __webpack_require__(8);
-	console.log(fromEvent);
-	$(function () {
-	  console.log("zzzz");
-	  var stream1 = xs.periodic(1000).filter(i => i % 2 === 0).map(i => i * i);
-
-	  var stream2 = xs.periodic(2000).map(i => i + 100);
-
-	  var stream3 = xs.combine(stream1, stream2).endWhen(xs.periodic(10000).take(1));
-	  // So far, the stream is idle.
-	  // As soon as it gets its first listener, it starts executing.
-
-	  stream3.addListener({
-	    next: arr => console.log(arr[0] + arr[1]),
-	    error: err => console.error(err),
-	    complete: () => console.log('completed')
-	  });
-	});
-
-/***/ }),
+/* 1 */,
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12323,6 +12298,44 @@
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = fromEvent;
 	//# sourceMappingURL=fromEvent.js.map
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	// require $ from 'jquery'
+	let $ = __webpack_require__(2);
+	let xs = __webpack_require__(3).default;
+	let fromEvent = __webpack_require__(8).default;
+
+	$(function () {
+	  var streamArr = [];
+	  var inputArr = document.querySelectorAll('.numInput');
+	  for (let i = 0; i < inputArr.length; i++) {
+	    streamArr.push(fromEvent(inputArr[i], 'change').map(e => e.target.value ? e.target.value - 0 : 0).filter(i => i % 3 !== 0).startWith(0));
+	  }
+	  // var stream1 = fromEvent(input1, 'change').map(e => e.target.value ? e.target.value - 0 : 0).startsWith(0),
+	  //   stream2 = fromEvent(input2, 'change').map(e => e.target.value ? e.target.value - 0 : 0).startsWith(0),
+	  //   stream3 = fromEvent(input3, 'change').map(e => e.target.value ? e.target.value - 0 : 0).startsWith(0)
+
+	  var streamAll = xs.combine(...streamArr).map(arr => arr.reduce((x, y) => x + y));
+	  // .map(i => parseInt(i))
+	  // .filter(i => (i % 3 !== 0))
+	  // .fold((acc, i) => acc + i, 0)
+
+	  streamAll.addListener({
+	    next: i => console.log(i),
+	    error: err => console.error(err),
+	    complete: i => console.log('completed', i)
+	  });
+
+	  // var sum = 0
+	  // input1.click(e => {
+	  //   var val = e.target.value ? e.target.value - 0 : 0
+	  //   sum += val
+
+	  // })
+	});
 
 /***/ })
 /******/ ]);
